@@ -1,0 +1,23 @@
+
+
+#Employee details
+    Name:
+    ID : 
+    Age :
+    Gender :
+    emailid :
+    Experience :
+    skillset :
+    salary :
+    department :
+    Leave/OfficePresence :
+
+ADD new Employee
+    Mandatory Fields
+    Validation
+Update employee :
+    Personal Details Update
+    Professional Details Update
+    Salary Update
+
+
