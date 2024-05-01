@@ -1,3 +1,5 @@
+#ifndef _EMPLOYEE_H_
+#defing _EMPLOYEE_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,7 +18,7 @@ typedef enum _department {
     CSI,
     APPDEV,
     SECURITY,
-}
+}department;
 
 
 typedef struct _employee {
@@ -28,5 +30,31 @@ typedef struct _employee {
     uint_8          experience;
     uint_32         skillset;
     uint_32         salary;
-
+    department      dep;
 }emp_detail;
+
+
+
+/* ******************************
+*          LOGGER MODULE
+*  ****************************** */
+typedef enum {
+    LOG_ERROR = 1,
+    LOG_WARN  = 2,
+    LOG_DEBUG = 3,
+} log_level_t;
+
+#define LOG_LEVEL LOG_DEBUG
+
+#define log_debug(msg, ...)  \
+        do{if(LOG_LEVEL >= LOG_DEBUG) printf("[%s - line(%d)] [DEBUG] :: " msg,  \
+                    __FUNCTION__, __LINE__, ##__VA_ARGS__ );} while (0)
+#define log_warning(msg, ...)  \
+        do{if(LOG_LEVEL >= LOG_WARN) printf("[%s - line(%d)] [WARNING] :: " msg,  \
+                    __FUNCTION__, __LINE__, ##__VA_ARGS__ );} while (0)
+#define log_error(msg, ...)  \
+        do{if(LOG_LEVEL >= LOG_ERROR) printf("[%s - line(%d)] [ERROR] :: " msg,  \
+                    __FUNCTION__, __LINE__, ##__VA_ARGS__ );} while (0)
+
+
+#endif
