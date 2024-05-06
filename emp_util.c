@@ -20,9 +20,14 @@ char* emp_get_gender(uint_8 age_gender)
     return "Others";
 }
 
-char* emp_get_skillset(uint_32 skillset)
+void print_emp_skillset(uint_32 skillset)
 {
-    
+    BOOL need_seperator = 0;
+
+    if((skillset & SKILLSET_MASK_C) == SKILLSET_MASK_C)
+    {
+        
+    }
 }
 
 char* emp_get_dep(department dep)
