@@ -18,5 +18,7 @@ int main(int argc, char *argv[])
 
     print_emp(&test);
 
+    save_emp_to_file(&test);
+
     return EXIT_SUCCESS;
 }
