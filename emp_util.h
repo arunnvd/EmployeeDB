@@ -1,5 +1,5 @@
 #ifndef _EMP_UTL_H_
-#defing _EMP_UTL_H_
+#define _EMP_UTL_H_
 
 #include "employee.h"
 

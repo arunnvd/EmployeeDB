@@ -1,5 +1,5 @@
 #ifndef _EMPLOYEE_H_
-#defing _EMPLOYEE_H_
+#define _EMPLOYEE_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +33,8 @@ typedef struct _employee {
     department      dep;
 }emp_detail;
 
+
+void generate_emp_email(emp_detail* emp);
 
 
 /* ******************************
