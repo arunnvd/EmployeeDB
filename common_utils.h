@@ -11,6 +11,5 @@ typedef unsigned char BOOL;
 typedef unsigned char uint_8;
 typedef unsigned int  uint_32;
 
-EMP_RET save_emp_to_file(emp_detail* emp);
 
 #endif

@@ -1,14 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "employee.h"
-#include "common_utils.h"
+#include "file_mgr.h"
 
-#define FILE_PATH "empdb.bin"
+#define FILE_PRFX "db\/empdb_"
 
 EMP_RET save_emp_to_file(emp_detail * emp)
 {
     int ret = 0;
-    FILE *file_handle = fopen(FILE_PATH, "wb");
+    char * file_path = malloc(sizeof(char) * 17);
+    sprintf(file_path, FILE_PRFX"%s.bin", emp->emp_id );
+    FILE *file_handle = fopen(file_path, "wb");
 
     if (emp == NULL)
     {
@@ -18,7 +17,7 @@ EMP_RET save_emp_to_file(emp_detail * emp)
 
     if (file_handle == NULL)
     {
-        log_error("Unable to open file "FILE_PATH"for writing \n");
+        log_error("Unable to open file %s for writing \n", file_path);
         return EMP_RET_FAIL;
     }
 
@@ -32,7 +31,37 @@ EMP_RET save_emp_to_file(emp_detail * emp)
     }
     fclose(file_handle);
 
-    log_debug("Successfully Written employee[%s] details to file", emp->name);
+    log_debug("Successfully Written employee[%s] details to file %s\n", emp->name, file_path);
     return EMP_RET_SUCCESS;
 }
+
+EMP_RET read_emp_from_file(char *db_path, emp_detail* emp)
+{
+    if (db_path == NULL || emp == NULL) 
+    {
+        log_error("Invalid params, unable to read Employee details \n");
+        return EMP_RET_FAIL;
+    }
+
+    char * file_path = malloc(sizeof(char) * 17);
+    sprintf(file_path, FILE_PRFX"%s.bin", db_path);
+
+    FILE * file_handle = fopen(file_path, "rb");
+
+    if(file_handle == NULL)
+    {
+        log_error("Error opening file [%s], unable to read Employee details \n", file_path);
+        return EMP_RET_FAIL;
+    }
+
+    fread(emp, sizeof(emp_detail), 1, file_handle);
+
+    log_debug("Successfully read employee(%s) detail from file %s\n", emp->name, file_path);
+    
+    return EMP_RET_SUCCESS;
+}
+
+
+
+
 
