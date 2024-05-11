@@ -1,4 +1,5 @@
 #include "file_mgr.h"
+#include "common_utils.h"
 
 #define FILE_PRFX "db\/empdb_"
 
@@ -61,7 +62,7 @@ EMP_RET read_emp_from_file(char *db_path, emp_detail* emp)
     return EMP_RET_SUCCESS;
 }
 
-
+EMP_RET get_all_employee_ids_from_db(uint_16 *emp_total, )
 
 
 
