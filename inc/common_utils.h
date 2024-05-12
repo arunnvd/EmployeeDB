@@ -2,6 +2,8 @@
 #ifndef _COMMON_UTLS_H_
 #define _COMMON_UTLS_H_
 
+#include "config.h"
+
 typedef enum _emp_ret {
     EMP_RET_FAIL = -1,
     EMP_RET_SUCCESS = 0,
@@ -10,6 +12,11 @@ typedef enum _emp_ret {
 typedef unsigned char BOOL;
 typedef unsigned char uint_8;
 typedef unsigned int  uint_32;
+typedef unsigned int  uint_16;
+
+
+#define TRUE 1
+#define FALSE 0
 
 
 /* ******************************
@@ -21,8 +28,6 @@ typedef enum {
     LOG_DEBUG = 3,
 } log_level_t;
 
-#define LOG_LEVEL LOG_DEBUG
-#define COLORCODE_LOGS
 
 #ifdef COLORCODE_LOGS 
 #define RST     "\x1B[0m"

@@ -1,7 +1,34 @@
 #include "file_mgr.h"
 #include "common_utils.h"
+#include "emp_list.h"
 
 #define FILE_PRFX "db\/empdb_"
+static uint_16 g_total_emp_cnt = 0;
+static BOOL db_init_done = FALSE;
+
+static void update_total_emp_count(uint_16 count)
+{
+    g_total_emp_cnt = count;
+}
+
+static void increment_total_emp_count()
+{
+    g_total_emp_cnt += 1;
+}
+
+static void decrement_total_emp_count()
+{
+    if(g_total_emp_cnt)
+        g_total_emp_cnt -= 1;
+}
+
+uint_16 get_total_emp_count()
+{
+    if(!db_init_done)
+        file_mgr_db_init();
+
+    return g_total_emp_cnt;
+}
 
 EMP_RET save_emp_to_file(emp_detail * emp)
 {
@@ -62,7 +89,53 @@ EMP_RET read_emp_from_file(char *db_path, emp_detail* emp)
     return EMP_RET_SUCCESS;
 }
 
-EMP_RET get_all_employee_ids_from_db(uint_16 *emp_total, )
+
+EMP_RET file_mgr_db_init()
+{
+    if(db_init_done)
+    {
+        log_warning("File DB already init completed, Doing nothing here\n");
+        return EMP_RET_FAIL;
+    }
+
+    const char* sh_command = "bash file_list.sh db";
+    FILE * sh_exe = popen(sh_command, "r");
+
+    if(!sh_exe)
+    {
+        log_error("Unable to execute shell script, Init Failed \n");
+        return EMP_RET_FAIL;
+    }
+
+    update_total_emp_count(0);
+    char buffer[128];
+
+    while(fgets(buffer, sizeof(buffer), sh_exe) != NULL)
+    {
+        char emp_id[8];
+
+        strncpy(emp_id, buffer+6, 7);
+        emp_id[7] = '\0';
+        log_debug("Adding Employee %s to Local DB \n", emp_id);
+
+        insert_emp_with_emp_id(emp_id);
+        increment_total_emp_count();
+    }
+
+    db_init_done = TRUE;
+
+    return EMP_RET_SUCCESS;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

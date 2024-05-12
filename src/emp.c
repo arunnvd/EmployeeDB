@@ -8,6 +8,9 @@ int main(int argc, char *argv[])
 {
     emp_detail test;
 
+    file_mgr_db_init();
+
+    log_warning("File Manager init completed and read %d employees  \n", get_total_emp_count());
     
     strcpy(test.name, "TestEmployee_2");
 //   test.age_gender = 114;
